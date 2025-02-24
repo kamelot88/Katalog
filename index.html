@@ -1,1 +1,189 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog frontów meblowych</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .categories button {
+            padding: 10px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .slider-container {
+            width: 80%;
+            max-width: 600px;
+            overflow: hidden;
+            position: relative;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .slide h2 {
+            margin: 10px 0 0;
+        }
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">PPHU "MarJan"</div>
+    
+    <div class="categories">
+        <button onclick="switchCategory(0)">Seria R</button>
+        <button onclick="switchCategory(1)">Seria P</button>
+        <button onclick="switchCategory(2)">Seria S</button>
+        <button onclick="switchCategory(3)">Seria W</button>
+    </div>
+    
+    <div class="slider-container">
+        <button class="prev" onclick="prevSlide()">&#10094;</button>
+        <div class="slides">
+
+            <div class="slide" data-category="0">
+                <img src="/img/R-01.webp" alt="R-01">
+                <h2>R-01</h2>
+            </div>
+            <div class="slide" data-category="0">
+                <img src="/img/R-02.webp" alt="R-02">
+                <h2>R-02</h2>
+            </div>
+            <div class="slide" data-category="0">
+                <img src="/img/R-03.webp" alt="R-03">
+                <h2>R-03</h2>
+            </div>
+            <div class="slide" data-category="0">
+                <img src="/img/R-04.webp" alt="R-04">
+                <h2>R-04</h2>
+            </div>
+
+            <div class="slide" data-category="1">
+                <img src="/img/P-01.webp" alt="P-01">
+                <h2>P-01</h2>
+            </div>
+            <div class="slide" data-category="1">
+                <img src="/img/P-02.webp" alt="P-02">
+                <h2>P-02</h2>
+            </div>
+            <div class="slide" data-category="1">
+                <img src="/img/P-03.webp" alt="P-03">
+                <h2>P-03</h2>
+            </div>
+            <div class="slide" data-category="1">
+                <img src="/img/P-04.webp" alt="P-04">
+                <h2>P-04</h2>
+            </div>
+            <div class="slide" data-category="1">
+                <img src="/img/P-05.webp" alt="P-05">
+                <h2>P-05</h2>
+            </div>
+            <div class="slide" data-category="1">
+                <img src="/img/P-06.webp" alt="P-06">
+                <h2>P-06</h2>
+            </div>
+
+
+            <div class="slide" data-category="2">
+                <img src="/img/S-01.webp" alt="S-01">
+                <h2>S-01</h2>
+            </div>
+            <div class="slide" data-category="2">
+                <img src="/img/S-02.webp" alt="S-02">
+                <h2>S-02</h2>
+            </div>
+            <div class="slide" data-category="2">
+                <img src="/img/S-03.webp" alt="S-03">
+                <h2>S-03</h2>
+            </div>
+            <div class="slide" data-category="2">
+                <img src="/img/S-04.webp" alt="S-04">
+                <h2>S-04</h2>
+            </div>
+
+
+            <div class="slide" data-category="3">
+                <img src="facade4.jpg" alt="">
+                <h2></h2>
+            </div>
+        </div>
+        <button class="next" onclick="nextSlide()">&#10095;</button>
+    </div>
+    
+    <div class="footer">
+        <p>Adres: Kowalew, Kowalewiec, 4A</p>
+        <p><a href="tel:+48660406845">Telefon: +48 660 406 845</a></p>
+    </div>
+    
+    <script>
+        let index = 0;
+        function showSlide(i) {
+            const slides = document.querySelector('.slides');
+            const total = document.querySelectorAll('.slide').length;
+            index = (i + total) % total;
+            slides.style.transform = `translateX(${-index * 100}%)`;
+        }
+        function prevSlide() { showSlide(index - 1); }
+        function nextSlide() { showSlide(index + 1); }
+        function switchCategory(category) {
+            const slides = document.querySelectorAll('.slide');
+            for (let i = 0; i < slides.length; i++) {
+                if (slides[i].getAttribute('data-category') == category) {
+                    showSlide(i);
+                    break;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
 
